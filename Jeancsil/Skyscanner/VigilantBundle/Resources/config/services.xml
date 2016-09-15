@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="jeancsil_skyscanner_vigilant.validator.command_line_parameter"
+                 class="Jeancsil\Skyscanner\VigilantBundle\Validator\CommandLineParameterValidator">
+        </service>
+
+        <service id="jeancsil_skyscanner_vigilant.api.flights.live_price"
+                 class="Jeancsil\Skyscanner\VigilantBundle\Api\Flights\LivePrice">
+            <argument type="service" id="jeancsil_skyscanner_vigilant.api_data_transfer.session_parameters_factory" />
+            <call method="setTransport">
+                <!-- TODO Use a CompilerPass -->
+                <argument type="service" id="jeancsil_skyscanner_vigilant.api_http.transport" />
+            </call>
+        </service>
+
+        <service id="jeancsil_skyscanner_vigilant.api.data_transfer.factory.travel_options"
+                 class="Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\TravelOptionsFactory" >
+        </service>
+
+        <service id="jeancsil_skyscanner_vigilant.api_http.transport"
+                 class="Jeancsil\Skyscanner\VigilantBundle\Api\Http\Transport">
+            <argument type="service" id="jeancsil_skyscanner_vigilant.http_client" />
+        </service>
+
+        <service id="jeancsil_skyscanner_vigilant.api_data_transfer.session_parameters_factory"
+                 class="Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\SessionParametersFactory">
+                <argument>%api.key%</argument>
+        </service>
+
+        <!-- Guzzle -->
+        <service id="jeancsil_skyscanner_vigilant.http_client"
+                 class="GuzzleHttp\Client">
+            <argument>%guzzle.client.config%</argument>
+        </service>
+    </services>
+</container>
