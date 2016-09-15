@@ -6,6 +6,41 @@
 Symfony2 Bundle that provides console commands to keep watching flight deals for you!
 
 
+## Install
+`composer require jeancsil/skyscanner-vigilant-bundle`
+
+OR
+
+Enable the bundle:
+
+```php
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+	{
+        $bundles = array(
+	        ...
+            new Jeancsil\Skyscanner\VigilantBundle\JeancsilSkyscannerVigilantBundle(),
+            ...
+        );
+
+    }
+}
+```
+
+Add these configurations in your parameters.yml file:
+
+```yaml
+jeancsil.skyscanner.api.host: 'http://partners.api.skyscanner.net'
+jeancsil.skyscanner.api.key: YOUR_API_KEY
+jeancsil.skyscanner.http.client.config:
+    base_uri: '%jeancsil.skyscanner.api.host%'
+    timeout: 30
+    headers:
+        Content-Type: application/x-www-form-urlencoded
+        Accept: application/json
+        User-Agent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) (OPTIONAL)'
+```
 
 ## Documentation
 
