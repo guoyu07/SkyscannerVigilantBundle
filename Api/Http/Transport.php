@@ -60,7 +60,7 @@ class Transport {
             //TODO FIXME
             return \GuzzleHttp\json_decode($request->getBody()->getContents());
         } catch (BadResponseException $e) {
-            print_r($e->getResponse());
+            //print_r($e->getResponse());
         }
     }
 
