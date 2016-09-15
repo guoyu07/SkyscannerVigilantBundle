@@ -10,8 +10,10 @@ Symfony2 Bundle that provides console commands to keep watching flight deals for
 ## Documentation
 
 Simply run `bin/console skyscanner:vigilant:live_prices --help` to get it running.
-E.g: `bin/console skyscanner:vigilant:live_prices --from=GRU-sky --to=FRA-sky --departure=2016-10-01 --arrival=2016-11-01 --country=BR --currency=BRL --locale=pt-BR`.
-*You might want to put it in your crontab as well (and go grab a beer)!*
+
+Example:`bin/console skyscanner:vigilant:live_prices --from=GRU-sky --to=FRA-sky --departure=2016-10-01 --arrival=2016-11-01 --country=BR --currency=BRL --locale=pt-BR`.
+
+You might want to put it in your crontab as well. (*and go grab a beer!*)
 
 ## Support
 
