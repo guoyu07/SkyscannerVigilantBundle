@@ -11,6 +11,14 @@ Symfony2 Bundle that provides console commands to keep watching flight deals for
 
 OR
 
+Add in your composer.json:
+
+```json
+"require": {
+    "jeancsil/skyscanner-vigilant-bundle": "1.*"
+}
+```
+
 Enable the bundle:
 
 ```php
