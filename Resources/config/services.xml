@@ -7,7 +7,7 @@
     <services>
         <service id="jeancsil_skyscanner_vigilant.validator.command_line_parameter"
                  class="Jeancsil\Skyscanner\VigilantBundle\Validator\CommandLineParameterValidator"
-                 public="false">
+                 public="true">
         </service>
 
         <service id="jeancsil_skyscanner_vigilant.api.flights.live_price"
