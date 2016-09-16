@@ -12,7 +12,7 @@
 
         <service id="jeancsil_skyscanner_vigilant.api.flights.live_price"
                  class="Jeancsil\Skyscanner\VigilantBundle\Api\Flights\LivePrice"
-                 public="false">
+                 public="true">
             <argument type="service" id="jeancsil_skyscanner_vigilant.api_data_transfer.session_parameters_factory" />
             <call method="setTransport">
                 <!-- TODO Use a CompilerPass -->
@@ -27,20 +27,20 @@
 
         <service id="jeancsil_skyscanner_vigilant.api_http.transport"
                  class="Jeancsil\Skyscanner\VigilantBundle\Api\Http\Transport"
-                 public="false">
+                 public="true">
             <argument type="service" id="jeancsil_skyscanner_vigilant.http_client" />
         </service>
 
         <service id="jeancsil_skyscanner_vigilant.api_data_transfer.session_parameters_factory"
                  class="Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\SessionParametersFactory"
-                 public="false">
+                 public="true">
                 <argument>%jeancsil.skyscanner.api.key%</argument>
         </service>
 
         <!-- Guzzle -->
         <service id="jeancsil_skyscanner_vigilant.http_client"
                  class="GuzzleHttp\Client"
-                 public="false">
+                 public="true">
             <argument>%jeancsil.skyscanner.http.client.config%</argument>
         </service>
     </services>
