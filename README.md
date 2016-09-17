@@ -1,6 +1,7 @@
 # Skyscanner Vigilant Bundle
-[![Latest Stable Version](https://img.shields.io/badge/jeancsil-skyscanner--vigilant--bundle-blue.svg)](https://packagist.org/packages/jeancsil/skyscanner-vigilant-bundle)
 [![Skyscanner Vigilant Bundle](http://business.skyscanner.net/Content/images/logo/ssf-white-color.png)](http://www.skyscanner.net)
+
+[![Latest Stable Version](https://img.shields.io/badge/jeancsil-skyscanner--vigilant--bundle-blue.svg)](https://packagist.org/packages/jeancsil/skyscanner-vigilant-bundle)
 
 
 
