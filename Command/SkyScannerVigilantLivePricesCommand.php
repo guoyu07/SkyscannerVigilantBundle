@@ -22,6 +22,7 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
             ->addOption(Parameter::TO, null, InputOption::VALUE_REQUIRED, 'Your final destiny.')
             ->addOption(Parameter::DEPARTURE_DATE, null, InputOption::VALUE_REQUIRED, 'The departure date (dd-mm-yyyy).')
             ->addOption(Parameter::RETURN_DATE, null, InputOption::VALUE_REQUIRED, 'The return date (dd-mm-yyyy).')
+            ->addOption(Parameter::MIN_PRICE, null, InputOption::VALUE_REQUIRED, 'Minimum price to consider as a good deal (1500).')
             ->addOption(Parameter::API_KEY, null, InputOption::VALUE_OPTIONAL, 'The Skyscanner API key.')
             ->addOption(Parameter::LOCATION_SCHEMA, null, InputOption::VALUE_OPTIONAL, 'One of the locations schema: Iata, GeoNameCode, GeoNameId, Rnid, Sky.', 'Sky')
             ->addOption(Parameter::COUNTRY, null, InputOption::VALUE_OPTIONAL, 'Country code (ISO or a valid one from location schema).')
@@ -36,52 +37,52 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        /** @var ValidatorInterface $validator */
-        $validator = $this
-            ->getContainer()
-            ->get('jeancsil_skyscanner_vigilant.validator.command_line_parameter');
-
-        $validator
+        $this->getValidator()
             ->setInstance($input)
             ->validate();
 
-        if (!$livePrices = $this->getContainer()
-            ->get('jeancsil_skyscanner_vigilant.api.flights.live_price')
-            ->getDeals($input)) {
+        $parameters = $this->getParametersFactory()
+            ->createFromInput($input);
+
+        if (!$response = $this->getLivePricesApi()->getDeals($parameters)) {
             return;
         }
 
-//var_dump($livePrices);die;
-        #$parsed = $livePrices->parsed;
-        $itineraries = $livePrices->Itineraries;
-        $cheaperItineraries = array_slice($itineraries, 0, 10);
+        $this->getLivePricesProcessor()
+            ->defineDealMinimumPrice($input->getArgument(Parameter::MIN_PRICE))
+            ->process($response);
+    }
 
-        $minPrice = 5000;
-        $goodPriceFound = false;
-        $resultCount = 1;
-        foreach ($cheaperItineraries as $itinerary) {
-            echo 'Verifying itinerary #'. $resultCount++ . ' ';
+    /**
+     * @return \Jeancsil\Skyscanner\VigilantBundle\Validator\ValidatorInterface
+     */
+    private function getValidator() {
+        return $this
+            ->getContainer()
+            ->get('jeancsil_skyscanner_vigilant.validator.command_line_parameter');
+    }
 
-            if (!isset($itinerary->PricingOptions[0])) {
-                continue;
-            }
+    /**
+     * @return \Jeancsil\Skyscanner\VigilantBundle\Api\Flights\LivePrice
+     */
+    private function getLivePricesApi() {
+        return $this->getContainer()
+            ->get('jeancsil_skyscanner_vigilant.api.flights.live_price');
+    }
 
-            $price = $itinerary->PricingOptions[0]->Price;
-            $deepLinkUrl = $itinerary->PricingOptions[0]->DeeplinkUrl;
+    /**
+     * @return \Jeancsil\Skyscanner\VigilantBundle\Api\Processor\LivePricePostProcessor|object
+     */
+    private function getLivePricesProcessor() {
+        return $this->getContainer()
+            ->get('jeancsil_skyscanner_vigilant.api_processor.live_prices');
+    }
 
-            if ($price <= $minPrice) {
-                $goodPriceFound = true;
-                echo "Bom preço encontrado ($price) ($deepLinkUrl)" . PHP_EOL;
-                continue;
-            }
-
-            echo "skipping..." . PHP_EOL;
-        }
-
-        if (!$goodPriceFound) {
-            echo "Nenhum preço encontrado..." . PHP_EOL;
-        } else {
-            echo "bons precos";
-        }
+    /**
+     * @return \Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\SessionParametersFactory
+     */
+    private function getParametersFactory() {
+        return $this->getContainer()
+            ->get('jeancsil_skyscanner_vigilant.api_data_transfer.session_parameters_factory');
     }
 }

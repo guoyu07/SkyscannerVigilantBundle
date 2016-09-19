@@ -5,12 +5,12 @@
  */
 namespace Jeancsil\Skyscanner\VigilantBundle\Entity;
 
-class Parameter
-{
+class Parameter {
     const FROM = 'from';
     const TO = 'to';
     const DEPARTURE_DATE= 'departure';
     const RETURN_DATE = 'arrival';
+    const MIN_PRICE = 'min-price';
     const API_KEY = 'api-key';
     const LOCATION_SCHEMA = 'location-schema';
     const COUNTRY = 'country';
