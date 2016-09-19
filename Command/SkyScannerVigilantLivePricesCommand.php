@@ -6,6 +6,7 @@
 namespace Jeancsil\Skyscanner\VigilantBundle\Command;
 
 use Jeancsil\Skyscanner\VigilantBundle\Entity\Parameter;
+use Jeancsil\Skyscanner\VigilantBundle\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -35,16 +36,14 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this
+        /** @var ValidatorInterface $validator */
+        $validator = $this
             ->getContainer()
-            ->get('jeancsil_skyscanner_vigilant.validator.command_line_parameter')
+            ->get('jeancsil_skyscanner_vigilant.validator.command_line_parameter');
+
+        $validator
             ->setInstance($input)
             ->validate();
-
-        $travelOptions = $this
-            ->getContainer()
-            ->get('jeancsil_skyscanner_vigilant.api.data_transfer.factory.travel_options')
-            ->createFromInput($input);
 
         if (!$livePrices = $this->getContainer()
             ->get('jeancsil_skyscanner_vigilant.api.flights.live_price')

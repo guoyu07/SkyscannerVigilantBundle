@@ -7,7 +7,7 @@ namespace Jeancsil\Skyscanner\VigilantBundle\Api\Flights;
 
 use Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\SessionParametersFactory;
 use Jeancsil\Skyscanner\VigilantBundle\Api\Http\TransportAwareTrait;
-use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Input\InputInterface;
 
 class LivePrice
 {
@@ -19,7 +19,7 @@ class LivePrice
         $this->sessionParametersFactory = $sessionParametersFactory;
     }
 
-    public function getDeals(Input $input) {
+    public function getDeals(InputInterface $input) {
         $parameters = $this->sessionParametersFactory->createFromInput($input);
 
         return $this->transport->findQuotes($parameters);

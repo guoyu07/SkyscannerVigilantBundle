@@ -8,6 +8,7 @@ namespace Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer;
 /**
  * @see http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingList#createsession
  *
+ * [name] [mandatory?] [description]
  * apiKey	Yes	The API Key to identify the customer	String	Must be a valid API Key
  * country	Yes	The user’s market country	String	ISO country code, or specified location schema
  * currency	Yes	The user’s currency	String	ISO currency code

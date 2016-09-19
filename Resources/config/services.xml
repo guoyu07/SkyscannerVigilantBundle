@@ -20,11 +20,6 @@
             </call>
         </service>
 
-        <service id="jeancsil_skyscanner_vigilant.api.data_transfer.factory.travel_options"
-                 class="Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer\TravelOptionsFactory"
-                 public="true">
-        </service>
-
         <service id="jeancsil_skyscanner_vigilant.api_http.transport"
                  class="Jeancsil\Skyscanner\VigilantBundle\Api\Http\Transport"
                  public="true">

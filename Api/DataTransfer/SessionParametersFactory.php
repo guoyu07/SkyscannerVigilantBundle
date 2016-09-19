@@ -6,7 +6,7 @@
 namespace Jeancsil\Skyscanner\VigilantBundle\Api\DataTransfer;
 
 use Jeancsil\Skyscanner\VigilantBundle\Entity\Parameter;
-use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Input\InputInterface;
 
 class SessionParametersFactory {
     private $apiKey;
@@ -18,9 +18,9 @@ class SessionParametersFactory {
         $this->apiKey = $apiKey;
     }
 
-    public function createFromInput(Input $input) {
+    public function createFromInput(InputInterface $input) {
         $parameters = new SessionParameters();
-        $parameters->apiKey = $this->apiKey;
+        $parameters->apiKey = $input->getOption(Parameter::FROM) ?: $this->apiKey;
         $parameters->originPlace = $input->getOption(Parameter::FROM);
         $parameters->destinationPlace = $input->getOption(Parameter::TO);
         $parameters->outboundDate = $input->getOption(Parameter::DEPARTURE_DATE);
