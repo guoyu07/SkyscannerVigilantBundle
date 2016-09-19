@@ -6,7 +6,6 @@
 namespace Jeancsil\Skyscanner\VigilantBundle\Command;
 
 use Jeancsil\Skyscanner\VigilantBundle\Entity\Parameter;
-use Jeancsil\Skyscanner\VigilantBundle\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -71,7 +70,7 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return \Jeancsil\Skyscanner\VigilantBundle\Api\Processor\LivePricePostProcessor|object
+     * @return \Jeancsil\Skyscanner\VigilantBundle\Api\Processor\LivePricePostProcessor
      */
     private function getLivePricesProcessor() {
         return $this->getContainer()

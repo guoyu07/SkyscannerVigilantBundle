@@ -6,6 +6,7 @@
 namespace Jeancsil\Skyscanner\VigilantBundle\Validator;
 
 use Jeancsil\Skyscanner\VigilantBundle\Entity\Parameter;
+use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputInterface;
 
 class CommandLineParameterValidator implements ValidatorInterface
@@ -36,9 +37,24 @@ class CommandLineParameterValidator implements ValidatorInterface
      * @throw ValidationException
      */
     public function validate() {
-        $this->input->getOption(Parameter::FROM);
-        $this->input->getOption(Parameter::TO);
-        $this->input->getOption(Parameter::DEPARTURE_DATE);
-        $this->input->getOption(Parameter::RETURN_DATE);
+        $from = $this->input->getOption(Parameter::FROM);
+        $to = $this->input->getOption(Parameter::TO);
+        $departureDate = $this->input->getOption(Parameter::DEPARTURE_DATE);
+        $returnDate = $this->input->getOption(Parameter::RETURN_DATE);
+        $minPrice = $this->input->getOption(Parameter::MIN_PRICE);
+
+        $options = [
+            '--from' => $from,
+            '--to' => $to,
+            '--departure' => $departureDate,
+            '--arrival' => $returnDate,
+            '--minPrice' => $minPrice
+        ];
+
+        foreach ($options as $longForm => $option) {
+            if (!$option) {
+                throw new InvalidOptionException("Option $longForm not defined");
+            }
+        }
     }
 }
