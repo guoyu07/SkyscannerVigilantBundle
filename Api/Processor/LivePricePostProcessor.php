@@ -14,15 +14,15 @@ class LivePricePostProcessor {
     private $minimumPrice;
 
     /**
-     * @param float $minimumPrice
+     * @param float $maximumPrice
      * @return $this
      */
-    public function defineDealMinimumPrice($minimumPrice) {
-        if (!is_numeric($minimumPrice)) {
-            throw new \InvalidArgumentException(sprintf('Expecting numeric received %s', gettype($minimumPrice)));
+    public function defineDealMaxPrice($maximumPrice) {
+        if (!is_numeric($maximumPrice)) {
+            throw new \InvalidArgumentException(sprintf('Expecting numeric received %s', gettype($maximumPrice)));
         }
 
-        $this->minimumPrice = $minimumPrice;
+        $this->minimumPrice = $maximumPrice;
 
         return $this;
     }
@@ -33,7 +33,7 @@ class LivePricePostProcessor {
         $itineraries = $response->Itineraries;
         $cheaperItineraries = array_slice($itineraries, 0, static::MAX_PARSED_DEALS);
 
-        $minPrice = 5000;
+        $maxPrice = 5000;
         $dealFound = false;
         $resultCount = 1;
         foreach ($cheaperItineraries as $itinerary) {
@@ -46,7 +46,7 @@ class LivePricePostProcessor {
             $price = $itinerary->PricingOptions[0]->Price;
             $deepLinkUrl = $itinerary->PricingOptions[0]->DeeplinkUrl;
 
-            if ($price <= $minPrice) {
+            if ($price <= $maxPrice) {
                 $dealFound = true;
                 echo "Bom preço encontrado ($price) ($deepLinkUrl)" . PHP_EOL;
                 continue;

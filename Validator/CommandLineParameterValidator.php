@@ -41,14 +41,14 @@ class CommandLineParameterValidator implements ValidatorInterface
         $to = $this->input->getOption(Parameter::TO);
         $departureDate = $this->input->getOption(Parameter::DEPARTURE_DATE);
         $returnDate = $this->input->getOption(Parameter::RETURN_DATE);
-        $minPrice = $this->input->getOption(Parameter::MIN_PRICE);
+        $maxPrice = $this->input->getOption(Parameter::MAX_PRICE);
 
         $options = [
             '--from' => $from,
             '--to' => $to,
             '--departure' => $departureDate,
             '--arrival' => $returnDate,
-            '--minPrice' => $minPrice
+            '--max-price' => $maxPrice
         ];
 
         foreach ($options as $longForm => $option) {

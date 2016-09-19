@@ -10,7 +10,7 @@ class Parameter {
     const TO = 'to';
     const DEPARTURE_DATE= 'departure';
     const RETURN_DATE = 'arrival';
-    const MIN_PRICE = 'min-price';
+    const MAX_PRICE = 'max-price';
     const API_KEY = 'api-key';
     const LOCATION_SCHEMA = 'location-schema';
     const COUNTRY = 'country';

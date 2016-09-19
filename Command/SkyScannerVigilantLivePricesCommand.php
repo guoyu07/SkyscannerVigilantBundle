@@ -21,7 +21,7 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
             ->addOption(Parameter::TO, null, InputOption::VALUE_REQUIRED, 'Your final destiny.')
             ->addOption(Parameter::DEPARTURE_DATE, null, InputOption::VALUE_REQUIRED, 'The departure date (dd-mm-yyyy).')
             ->addOption(Parameter::RETURN_DATE, null, InputOption::VALUE_REQUIRED, 'The return date (dd-mm-yyyy).')
-            ->addOption(Parameter::MIN_PRICE, null, InputOption::VALUE_REQUIRED, 'Minimum price to consider as a good deal (1500).')
+            ->addOption(Parameter::MAX_PRICE, null, InputOption::VALUE_REQUIRED, 'Maximum price to consider as a good deal (1500).')
             ->addOption(Parameter::API_KEY, null, InputOption::VALUE_OPTIONAL, 'The Skyscanner API key.')
             ->addOption(Parameter::LOCATION_SCHEMA, null, InputOption::VALUE_OPTIONAL, 'One of the locations schema: Iata, GeoNameCode, GeoNameId, Rnid, Sky.', 'Sky')
             ->addOption(Parameter::COUNTRY, null, InputOption::VALUE_OPTIONAL, 'Country code (ISO or a valid one from location schema).')
@@ -48,7 +48,7 @@ class SkyScannerVigilantLivePricesCommand extends ContainerAwareCommand
         }
 
         $this->getLivePricesProcessor()
-            ->defineDealMinimumPrice($input->getArgument(Parameter::MIN_PRICE))
+            ->defineDealMaxPrice($input->getOption(Parameter::MAX_PRICE))
             ->process($response);
     }
 

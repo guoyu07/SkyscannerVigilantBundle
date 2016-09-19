@@ -42,5 +42,20 @@
                  public="true">
             <argument>%jeancsil.skyscanner.http.client.config%</argument>
         </service>
+
+        <!-- Log -->
+        <service id="jeancsil_skyscanner_vigilant.logger.file"
+                 class="Monolog\Handler\StreamHandler">
+            <argument>/tmp/skyscanner.log</argument>
+            <argument type="constant">Monolog\Logger\Logger::WARNING</argument>
+        </service>
+
+        <service id="jeancsil_skyscanner_vigilant.logger.log"
+                 class="Monolog\Logger">
+            <argument>skyscanner</argument>
+            <call method="pushHandler">
+                <argument type="service" id="jeancsil_skyscanner_vigilant.logger.file" />
+            </call>
+        </service>
     </services>
 </container>
