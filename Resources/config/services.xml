@@ -50,7 +50,7 @@
         <service id="jeancsil_skyscanner_vigilant.logger.file"
                  class="Monolog\Handler\StreamHandler">
             <argument>/tmp/skyscanner.log</argument>
-            <argument type="constant">Monolog\Logger\Logger::WARNING</argument>
+            <argument type="constant">Monolog\Logger\Logger::DEBUG</argument>
         </service>
 
         <service id="jeancsil_skyscanner_vigilant.logger.log"
