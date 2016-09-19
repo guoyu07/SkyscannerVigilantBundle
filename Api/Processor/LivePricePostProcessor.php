@@ -32,6 +32,7 @@ class LivePricePostProcessor {
     }
 
     public function process(\stdClass $response) {
+        print_r($this->logger);
         $this->logger->debug("The response received is: %s", json_encode($response->parsed, true));
 
         //var_dump($response);die;
@@ -40,10 +41,10 @@ class LivePricePostProcessor {
         $cheaperItineraries = array_slice($itineraries, 0, static::MAX_PARSED_DEALS);
 
         $maxPrice = 5000;
-        $dealFound = false;
+//        $dealFound = false;
         $resultCount = 1;
         foreach ($cheaperItineraries as $itinerary) {
-            echo 'Verifying itinerary #'. $resultCount++ . ' ';
+            $this->logger->debug('Verifying itinerary #'. $resultCount++);
 
             if (!isset($itinerary->PricingOptions[0])) {
                 continue;
@@ -53,18 +54,12 @@ class LivePricePostProcessor {
             $deepLinkUrl = $itinerary->PricingOptions[0]->DeeplinkUrl;
 
             if ($price <= $maxPrice) {
-                $dealFound = true;
-                echo "Bom preço encontrado ($price) ($deepLinkUrl)" . PHP_EOL;
+//                $dealFound = true;
+                $this->logger->debug("Bom preço encontrado ($price) ($deepLinkUrl)");
                 continue;
             }
 
-            echo "skipping..." . PHP_EOL;
-        }
-
-        if (!$dealFound) {
-            echo "Nenhum preço encontrado..." . PHP_EOL;
-        } else {
-            echo "bons precos";
+            $this->logger->debug("skipping...");
         }
     }
 }
