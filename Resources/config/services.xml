@@ -34,6 +34,9 @@
         <service id="jeancsil_skyscanner_vigilant.api_processor.live_prices"
                  class="Jeancsil\Skyscanner\VigilantBundle\Api\Processor\LivePricePostProcessor"
                  public="true">
+            <call method="setLogger">
+                <argument type="service" id="jeancsil_skyscanner_vigilant.logger.log" />
+            </call>
         </service>
 
         <!-- Guzzle -->

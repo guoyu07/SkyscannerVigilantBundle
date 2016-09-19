@@ -5,7 +5,11 @@
  */
 namespace Jeancsil\Skyscanner\VigilantBundle\Api\Processor;
 
+use Psr\Log\LoggerAwareTrait;
+
 class LivePricePostProcessor {
+    use LoggerAwareTrait;
+
     const MAX_PARSED_DEALS = 5;
 
     /**
@@ -28,6 +32,8 @@ class LivePricePostProcessor {
     }
 
     public function process(\stdClass $response) {
+        $this->logger->debug("The response received is: %s", json_encode($response->parsed, true));
+
         //var_dump($response);die;
         #$parsed = $response->parsed;
         $itineraries = $response->Itineraries;
