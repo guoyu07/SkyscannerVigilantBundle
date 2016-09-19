@@ -33,7 +33,7 @@ class LivePricePostProcessor {
 
     public function process(\stdClass $response) {
         print_r($this->logger);
-        $this->logger->debug("The response received is: %s", json_encode($response->parsed, true));
+        $this->logger->debug("Response received: %s", json_encode($response->parsed, true));
 
         //var_dump($response);die;
         #$parsed = $response->parsed;
